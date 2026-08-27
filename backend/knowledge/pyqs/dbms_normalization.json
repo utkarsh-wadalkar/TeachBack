@@ -1,0 +1,34 @@
+{
+  "subject": "DBMS",
+  "_note": "PYQs reference concepts by code within the subject. The concept carrying the evaluation rubric (3NF) is listed so the grader targets it; additional codes enrich the 'concepts tested' display.",
+  "pyqs": [
+    {
+      "code": "DBMS-NORM-2023-Q4",
+      "question": "Explain Third Normal Form (3NF) with a suitable example. Why is a relation that is in 2NF not necessarily in 3NF?",
+      "marks": 5,
+      "year": "2023",
+      "source": {
+        "university": "SPPU",
+        "subject": "Database Management Systems",
+        "marks": 5,
+        "year": "2023",
+        "exam": "End Semester Examination"
+      },
+      "concepts": ["3NF", "FD"]
+    },
+    {
+      "code": "DBMS-NORM-2022-Q4",
+      "question": "Consider the relation R(A, B, C, D) with functional dependencies A → B and B → C. Determine whether R is in 3NF. Justify your answer and, if required, decompose R into 3NF relations.",
+      "marks": 6,
+      "year": "2022",
+      "source": {
+        "university": "SPPU",
+        "subject": "Database Management Systems",
+        "marks": 6,
+        "year": "2022",
+        "exam": "End Semester Examination"
+      },
+      "concepts": ["3NF", "FD", "2NF"]
+    }
+  ]
+}

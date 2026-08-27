@@ -1,0 +1,140 @@
+{
+  "subject": "DBMS",
+  "topic": "NORM",
+  "_note": "Content keyed by concept code. Only 3NF carries the full TeachBack rubric (learning + expected_concepts + misconceptions + knowledge_chunks). Sibling concepts carry a summary so the curriculum reads coherently; their TeachBack loop is disabled in the MVP.",
+  "concepts": {
+    "FD": {
+      "summary": "A functional dependency X → Y means the value of X uniquely determines the value of Y. Functional dependencies are the language in which all normal forms are defined.",
+      "learning": {
+        "key_idea": "X → Y holds when two rows that agree on X must also agree on Y."
+      }
+    },
+    "1NF": {
+      "summary": "A relation is in First Normal Form when every attribute holds a single, atomic value — no repeating groups or multi-valued cells.",
+      "learning": {
+        "key_idea": "1NF removes multi-valued and composite attributes: one cell, one value."
+      }
+    },
+    "2NF": {
+      "summary": "A relation is in Second Normal Form when it is in 1NF and every non-key attribute depends on the whole candidate key — no partial dependencies on part of a composite key.",
+      "learning": {
+        "key_idea": "2NF removes partial dependencies: non-key attributes must depend on the entire key, not just part of it."
+      }
+    },
+    "3NF": {
+      "summary": "A relation is in Third Normal Form when it is in 2NF and no non-prime attribute is transitively dependent on any candidate key — every non-key attribute must depend on the key, the whole key, and nothing but the key.",
+      "learning": {
+        "key_idea": "A relation is in 3NF if it is already in 2NF and has no transitive dependencies: no non-key attribute may be determined by another non-key attribute. Informally — every non-key attribute must depend on the key, the whole key, and nothing but the key.",
+        "explanation": "Third Normal Form builds directly on Second Normal Form. 2NF removes partial dependencies (a non-key attribute depending on only part of a composite key). 3NF removes the next problem: transitive dependencies.\n\nA transitive dependency exists when a non-key attribute depends on the key only indirectly, through another non-key attribute. If A is the key and A → B and B → C, then C depends on A transitively (A → B → C). Even though the relation may already be in 2NF, that indirect chain still causes update, insertion, and deletion anomalies.\n\nThe formal statement uses prime and non-prime attributes: a relation is in 3NF if, for every functional dependency X → A, at least one of the following holds — X is a superkey, or A is a prime attribute (part of some candidate key). This is stricter than 2NF but slightly looser than BCNF.",
+        "example": "Consider STUDENT(StudentID, Dept, DeptHead) with StudentID → Dept and Dept → DeptHead. StudentID is the key, so DeptHead depends on it only transitively: StudentID → Dept → DeptHead. This violates 3NF. Decompose into STUDENT(StudentID, Dept) and DEPARTMENT(Dept, DeptHead). Now every non-key attribute depends directly on its table's key, and no information is lost (the join on Dept reconstructs the original).",
+        "common_mistake": "Assuming that once partial dependencies are removed (i.e. the relation reaches 2NF), it is automatically in 3NF. 2NF only handles partial dependencies; 3NF additionally eliminates transitive dependencies. A relation can be firmly in 2NF and still violate 3NF.",
+        "teachback_prompt": "Explain Third Normal Form (3NF) in your own words — what it requires, and how it differs from 2NF. Imagine you're teaching a classmate who already understands 2NF.",
+        "followups": {
+          "transitive_dependency": "Consider R(StudentID, Dept, DeptHead) with StudentID → Dept and Dept → DeptHead. Explain precisely which dependency violates 3NF, and show how you would decompose R to remove it.",
+          "non_prime_attribute": "In a relation with candidate key {A}, which attributes are 'prime' and which are 'non-prime'? Use the formal 3NF rule — for every FD X → Y, X is a superkey or Y is prime — to explain why that distinction matters."
+        },
+        "default_followup": "Give your own example of a relation that is in 2NF but not in 3NF, and show the decomposition that brings it to 3NF."
+      },
+      "expected_concepts": [
+        {
+          "key": "functional_dependency",
+          "label": "Functional dependency",
+          "weight": 16,
+          "description": "3NF is defined in terms of functional dependencies — which attributes determine which others.",
+          "keywords": ["functional dependenc", "determines", "determine", "depends on", "→", "->"]
+        },
+        {
+          "key": "candidate_key",
+          "label": "Candidate key",
+          "weight": 14,
+          "description": "3NF is always judged relative to the candidate key(s) of the relation.",
+          "keywords": ["candidate key", "primary key", "superkey", "super key"]
+        },
+        {
+          "key": "builds_on_2nf",
+          "label": "2NF foundation",
+          "weight": 14,
+          "description": "A relation must already be in 2NF — no non-key attribute may partially depend on a composite key.",
+          "keywords": ["2nf", "second normal form", "partial dependenc", "partial functional"]
+        },
+        {
+          "key": "definition_core",
+          "label": "Dependency on the key",
+          "weight": 14,
+          "description": "Every non-key attribute must be determined by the key itself, not by another non-key attribute.",
+          "keywords": ["non-key attribute", "non key attribute", "nonkey", "depends only on the", "depend on the key", "every non-key"]
+        },
+        {
+          "key": "transitive_dependency",
+          "label": "Transitive dependency",
+          "weight": 14,
+          "description": "3NF forbids transitive dependencies: a non-key attribute must not depend on the key indirectly through another non-key attribute (A → B → C).",
+          "keywords": ["transitive", "indirect dependenc", "a → b → c", "a→b→c"]
+        },
+        {
+          "key": "non_prime_attribute",
+          "label": "Prime attribute",
+          "weight": 14,
+          "description": "The precise definition of 3NF is stated with prime and non-prime attributes: for every functional dependency X → A, either X is a superkey or A is a prime attribute (part of some candidate key). Naming which attributes are prime versus non-prime makes your 3NF check rigorous rather than intuitive.",
+          "keywords": ["non-prime", "nonprime", "non prime", "prime attribute"]
+        },
+        {
+          "key": "example_application",
+          "label": "Worked example",
+          "weight": 14,
+          "description": "A strong answer grounds 3NF in a concrete relation and its functional dependencies.",
+          "keywords": ["for example", "e.g.", "consider", "such as", "relation r", " table "]
+        }
+      ],
+      "misconceptions": [
+        {
+          "code": "2nf_vs_3nf",
+          "title": "Confusing 2NF with 3NF",
+          "description": "Your explanation stops at removing partial dependencies, which is exactly what 2NF guarantees — it treats reaching 2NF as sufficient for 3NF.",
+          "why_it_matters": "3NF goes further: it also forbids transitive dependencies, where a non-key attribute is determined by another non-key attribute rather than directly by the key. A relation can satisfy 2NF and still violate 3NF, so the transitive-dependency check is exactly what distinguishes the two.",
+          "trigger_keywords": ["partial dependenc", "2nf", "second normal form"],
+          "resolved_when_key": "transitive_dependency"
+        }
+      ],
+      "knowledge_chunks": [
+        {
+          "title": "Definition of 3NF",
+          "text": "A relation schema R is in Third Normal Form (3NF) if, for every non-trivial functional dependency X → A that holds on R, either X is a superkey of R, or A is a prime attribute (a member of some candidate key). Equivalently, R is in 3NF if it is in 2NF and no non-prime attribute is transitively dependent on any candidate key.",
+          "source": "Elmasri & Navathe, Fundamentals of Database Systems"
+        },
+        {
+          "title": "Transitive dependency",
+          "text": "A transitive dependency is a functional dependency in which a non-prime attribute depends on another non-prime attribute rather than directly on a candidate key. If A → B and B → C hold, and B is not a candidate key, then C is transitively dependent on A. 3NF eliminates such transitive dependencies to remove update, insertion, and deletion anomalies.",
+          "source": "Silberschatz, Korth & Sudarshan, Database System Concepts"
+        },
+        {
+          "title": "2NF versus 3NF",
+          "text": "Second Normal Form removes partial dependencies: every non-prime attribute must be fully functionally dependent on every candidate key. Third Normal Form is strictly stronger — in addition to satisfying 2NF, it removes transitive dependencies of non-prime attributes on candidate keys. A relation can be in 2NF yet violate 3NF when a non-key attribute determines another non-key attribute.",
+          "source": "SPPU DBMS Unit III — Relational Database Design (course notes)"
+        },
+        {
+          "title": "Prime and non-prime attributes",
+          "text": "An attribute is called a prime attribute if it is a member of at least one candidate key; otherwise it is a non-prime attribute. Normal-form definitions from 2NF onward are stated in terms of how non-prime attributes depend on candidate keys, which is why identifying the candidate keys is the first step of any normalization analysis.",
+          "source": "Elmasri & Navathe, Fundamentals of Database Systems"
+        },
+        {
+          "title": "Decomposition to 3NF",
+          "text": "When a relation violates 3NF because of a transitive dependency A → B → C, it is decomposed by projecting out the offending dependency: replace R(A, B, C) with R1(A, B) and R2(B, C). This lossless-join, dependency-preserving decomposition removes the anomaly while allowing the original relation to be reconstructed by a natural join on B.",
+          "source": "Silberschatz, Korth & Sudarshan, Database System Concepts"
+        }
+      ]
+    },
+    "BCNF": {
+      "summary": "A relation is in Boyce–Codd Normal Form when, for every non-trivial functional dependency X → Y, X is a superkey. BCNF is stricter than 3NF and handles anomalies 3NF can leave behind.",
+      "learning": {
+        "key_idea": "BCNF requires the left side of every non-trivial functional dependency to be a superkey."
+      }
+    },
+    "DECOMP": {
+      "summary": "Decomposition splits a relation into smaller relations to eliminate anomalies. A good decomposition is lossless-join (the original can be reconstructed) and, ideally, dependency-preserving.",
+      "learning": {
+        "key_idea": "Decomposition must be lossless-join so no information is created or destroyed when tables are split."
+      }
+    }
+  }
+}

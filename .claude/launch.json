@@ -1,0 +1,27 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "backend",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'D:\\ALL Programming\\iQ\\backend'; & '.\\.venv\\Scripts\\python.exe' -m uvicorn app.main:app --port 8000"
+      ],
+      "port": 8000,
+      "autoPort": false
+    },
+    {
+      "name": "frontend",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'D:\\ALL Programming\\iQ\\frontend'; npm run dev"
+      ],
+      "port": 5173,
+      "url": "http://localhost:5173"
+    }
+  ]
+}

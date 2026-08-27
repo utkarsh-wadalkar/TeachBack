@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+/*
+ * TeachBack design tokens.
+ *
+ * One typeface (Inter Variable). A paper-neutral surface, ink text, and a
+ * single "examiner ink" blue as the interactive primary. Color elsewhere is
+ * reserved for meaning: correct (green), needs attention (amber),
+ * misconception (red). No gradients, no glow.
+ */
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-paper: #fbfbf9;
+  --color-surface: #ffffff;
+  --color-ink: #1a1d21;
+  --color-ink-soft: #454c55;
+  --color-ink-faint: #6d7681;
+  --color-rule: #e5e6e1;
+  --color-rule-strong: #c9ccc4;
+
+  --color-primary: #274b6d;
+  --color-primary-deep: #1e3b57;
+  --color-primary-tint: #edf2f7;
+  --color-primary-line: #ccd9e4;
+
+  --color-correct: #2e7d4f;
+  --color-correct-bg: #f0f6f1;
+  --color-correct-line: #cde0d2;
+
+  --color-attention: #8a5f10;
+  --color-attention-bg: #fbf4e3;
+  --color-attention-line: #ecdab0;
+
+  --color-misconception: #b3372e;
+  --color-misconception-bg: #fbf0ee;
+  --color-misconception-line: #f0d3ce;
+
+  --tracking-eyebrow: 0.09em;
+
+  --animate-reveal-up: reveal-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Staggered reveal for the progressive-disclosure evaluation report. */
+.reveal-step {
+  animation: var(--animate-reveal-up);
+}
+.reveal-step:nth-child(2) { animation-delay: 90ms; }
+.reveal-step:nth-child(3) { animation-delay: 180ms; }
+.reveal-step:nth-child(4) { animation-delay: 270ms; }
+.reveal-step:nth-child(5) { animation-delay: 360ms; }
+.reveal-step:nth-child(6) { animation-delay: 450ms; }
+.reveal-step:nth-child(7) { animation-delay: 540ms; }
+.reveal-step:nth-child(8) { animation-delay: 630ms; }
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv05" 1; /* single-storey l — calmer at small sizes */
+  }
+
+  ::selection {
+    background-color: var(--color-primary-tint);
+    color: var(--color-primary-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Uppercase tracked label — the structural voice of the exam-paper vernacular. */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-ink-faint);
+  }
+
+  /* Long-form reading measure for learning content. */
+  .prose-learning p {
+    margin-bottom: 1em;
+    line-height: 1.7;
+    color: var(--color-ink-soft);
+  }
+  .prose-learning p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Pulsing dot for the active recording state. */
+  .rec-dot {
+    animation: rec-pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes rec-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+}

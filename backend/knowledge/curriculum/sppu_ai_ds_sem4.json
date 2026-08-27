@@ -1,0 +1,33 @@
+{
+  "university": { "code": "SPPU", "name": "Savitribai Phule Pune University" },
+  "programme": { "code": "BE-AIDS", "name": "B.E. Artificial Intelligence & Data Science" },
+  "pattern": { "code": "2019", "name": "2019 Pattern" },
+  "semester": { "number": 4, "name": "Semester IV" },
+  "subjects": [
+    {
+      "code": "DBMS",
+      "name": "Database Management Systems",
+      "units": [
+        {
+          "number": 3,
+          "name": "Relational Database Design",
+          "topics": [
+            {
+              "code": "NORM",
+              "name": "Normalization",
+              "order": 1,
+              "concepts": [
+                { "code": "FD", "name": "Functional Dependency", "order": 1, "teachback_enabled": false },
+                { "code": "1NF", "name": "First Normal Form", "order": 2, "teachback_enabled": false },
+                { "code": "2NF", "name": "Second Normal Form", "order": 3, "teachback_enabled": false },
+                { "code": "3NF", "name": "Third Normal Form", "order": 4, "teachback_enabled": true },
+                { "code": "BCNF", "name": "Boyce–Codd Normal Form", "order": 5, "teachback_enabled": false },
+                { "code": "DECOMP", "name": "Decomposition", "order": 6, "teachback_enabled": false }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
