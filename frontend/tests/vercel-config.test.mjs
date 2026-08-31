@@ -2,10 +2,16 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
-test("Vercel routes API requests to the Python entrypoint", async () => {
+test("Vercel leaves Python API routing to the native runtime", async () => {
   const config = JSON.parse(await readFile(new URL("../../vercel.json", import.meta.url), "utf8"));
 
-  assert.deepEqual(config.rewrites[0], { source: "/api/(.*)", destination: "/api/index.py" });
+  assert.equal(config.rewrites, undefined);
+});
+
+test("the frontend uses hash navigation so static hosting needs no route rewrite", async () => {
+  const entry = await readFile(new URL("../src/main.tsx", import.meta.url), "utf8");
+
+  assert.match(entry, /HashRouter/);
 });
 
 test("Vercel can install the FastAPI runtime from root requirements", async () => {

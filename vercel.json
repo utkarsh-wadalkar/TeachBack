@@ -1,9 +1,5 @@
 {
   "buildCommand": "cd frontend && npm run build",
   "installCommand": "uv pip install -r requirements.txt && cd frontend && npm ci",
-  "outputDirectory": "frontend/dist",
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "outputDirectory": "frontend/dist"
 }
