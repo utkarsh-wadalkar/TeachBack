@@ -14,3 +14,10 @@ test("Vercel can install the FastAPI runtime from root requirements", async () =
   assert.match(requirements, /^fastapi==0\.115\.6$/m);
   assert.match(requirements, /^sqlalchemy==2\.0\.36$/m);
 });
+
+test("the Vercel install command prepares both Python and frontend dependencies", async () => {
+  const config = JSON.parse(await readFile(new URL("../../vercel.json", import.meta.url), "utf8"));
+
+  assert.match(config.installCommand, /uv pip install -r requirements\.txt/);
+  assert.match(config.installCommand, /cd frontend && npm ci/);
+});
