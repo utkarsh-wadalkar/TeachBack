@@ -7,3 +7,10 @@ test("Vercel routes API requests to the Python entrypoint", async () => {
 
   assert.deepEqual(config.rewrites[0], { source: "/api/(.*)", destination: "/api/index.py" });
 });
+
+test("Vercel can install the FastAPI runtime from root requirements", async () => {
+  const requirements = await readFile(new URL("../../requirements.txt", import.meta.url), "utf8");
+
+  assert.match(requirements, /^fastapi==0\.115\.6$/m);
+  assert.match(requirements, /^sqlalchemy==2\.0\.36$/m);
+});
