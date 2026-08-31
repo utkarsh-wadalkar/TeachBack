@@ -9,6 +9,7 @@ the codebase; it belongs here.
 from __future__ import annotations
 
 from functools import lru_cache
+import os
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -20,7 +21,7 @@ BACKEND_DIR = Path(__file__).resolve().parents[2]
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=BACKEND_DIR / ".env",
+        env_file=None if os.getenv("VERCEL") else BACKEND_DIR / ".env",
         env_file_encoding="utf-8",
         extra="ignore",
         case_sensitive=False,
@@ -32,7 +33,7 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
 
     # Database
-    database_url: str = "sqlite:///./teachback.db"
+    database_url: str = "sqlite:////tmp/teachback.db" if os.getenv("VERCEL") else "sqlite:///./teachback.db"
 
     # LLM provider ("sarvam" | "mock")
     llm_provider: str = "mock"
@@ -58,6 +59,10 @@ class Settings(BaseSettings):
     @property
     def is_sqlite(self) -> bool:
         return self.database_url.startswith("sqlite")
+
+    @property
+    def is_vercel(self) -> bool:
+        return os.getenv("VERCEL") == "1"
 
 
 @lru_cache

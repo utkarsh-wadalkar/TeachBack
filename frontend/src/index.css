@@ -1,43 +1,41 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
 
-/*
- * TeachBack design tokens.
- *
- * One typeface (Inter Variable). A paper-neutral surface, ink text, and a
- * single "examiner ink" blue as the interactive primary. Color elsewhere is
- * reserved for meaning: correct (green), needs attention (amber),
- * misconception (red). No gradients, no glow.
- */
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Arial Narrow", "Inter Variable", ui-sans-serif, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  --color-paper: #fbfbf9;
-  --color-surface: #ffffff;
-  --color-ink: #1a1d21;
-  --color-ink-soft: #454c55;
-  --color-ink-faint: #6d7681;
-  --color-rule: #e5e6e1;
-  --color-rule-strong: #c9ccc4;
+  --color-void: #070806;
+  --color-paper: #070806;
+  --color-surface: #11130f;
+  --color-carbon: #191b16;
+  --color-ink: #e5e7dd;
+  --color-ink-soft: #c0c3b9;
+  --color-ink-faint: #8e9188;
+  --color-rule: #2a2d26;
+  --color-rule-strong: #454840;
 
-  --color-primary: #274b6d;
-  --color-primary-deep: #1e3b57;
-  --color-primary-tint: #edf2f7;
-  --color-primary-line: #ccd9e4;
+  --color-signal: #ff6a1a;
+  --color-signal-amber: #ffb56b;
+  --color-primary: #ff6a1a;
+  --color-primary-deep: #d94d0c;
+  --color-primary-tint: #32190c;
+  --color-primary-line: #793813;
 
-  --color-correct: #2e7d4f;
-  --color-correct-bg: #f0f6f1;
-  --color-correct-line: #cde0d2;
+  --color-correct: #8bd982;
+  --color-correct-bg: #102416;
+  --color-correct-line: #315b35;
 
-  --color-attention: #8a5f10;
-  --color-attention-bg: #fbf4e3;
-  --color-attention-line: #ecdab0;
+  --color-attention: #ffbf69;
+  --color-attention-bg: #2d2110;
+  --color-attention-line: #6b4b1e;
 
-  --color-misconception: #b3372e;
-  --color-misconception-bg: #fbf0ee;
-  --color-misconception-line: #f0d3ce;
+  --color-misconception: #ff8c80;
+  --color-misconception-bg: #321514;
+  --color-misconception-line: #73322d;
 
-  --tracking-eyebrow: 0.09em;
+  --tracking-eyebrow: 0.14em;
 
   --animate-reveal-up: reveal-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -72,20 +70,21 @@
   }
 
   body {
-    background-color: var(--color-paper);
+    min-width: 320px;
+    background-color: var(--color-void);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-feature-settings: "cv05" 1; /* single-storey l — calmer at small sizes */
+    font-feature-settings: "cv05" 1;
   }
 
   ::selection {
     background-color: var(--color-primary-tint);
-    color: var(--color-primary-deep);
+    color: var(--color-signal-amber);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-signal-amber);
+    outline-offset: 3px;
     border-radius: 2px;
   }
 
@@ -132,5 +131,50 @@
     50% {
       opacity: 0.35;
     }
+  }
+
+  .dark-grid {
+    background-image:
+      linear-gradient(rgba(229, 231, 221, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(229, 231, 221, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 62% 0%, rgba(255, 106, 26, 0.14), transparent 31rem);
+    background-size: 40px 40px, 40px 40px, auto;
+  }
+
+  .panel-surface {
+    background: linear-gradient(145deg, rgba(25, 27, 22, 0.96), rgba(11, 13, 10, 0.94));
+    border: 1px solid rgba(229, 231, 221, 0.13);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.035);
+  }
+
+  .signal-orbit {
+    position: relative;
+    isolation: isolate;
+  }
+  .signal-orbit::before,
+  .signal-orbit::after {
+    position: absolute;
+    inset: -8px;
+    border: 1px solid color-mix(in srgb, var(--color-signal), transparent 52%);
+    border-radius: 9999px;
+    content: "";
+    pointer-events: none;
+  }
+  .signal-orbit::after {
+    inset: -15px;
+    border-color: color-mix(in srgb, var(--color-signal-amber), transparent 76%);
+  }
+
+  .display-type {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+  }
+
+  .data-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 }

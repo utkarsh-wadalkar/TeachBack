@@ -63,7 +63,7 @@ export function PYQPage() {
   sourceParts.push(`${pyq.marks} marks`);
 
   return (
-    <article>
+    <article className="pb-8">
       <PageHeader
         crumbs={[{ label: "Learning path", to: "/" }, { label: "PYQ" }]}
         title="Previous year question"
@@ -73,7 +73,7 @@ export function PYQPage() {
       />
 
       {/* The paper */}
-      <section aria-label="The question" className="rounded-lg border border-rule bg-surface px-6 py-6 sm:px-8">
+      <section aria-label="The question" className="panel-surface rounded-[1.45rem] px-6 py-6 sm:px-8">
         <p className="eyebrow mb-4">Question · Q{pyq.code.split("-").at(-1)}</p>
         <p className="max-w-[70ch] text-[17px] leading-relaxed font-medium text-ink">{pyq.question}</p>
 
@@ -130,7 +130,7 @@ export function PYQPage() {
               rows={9}
               maxLength={1000}
               placeholder="Answer as you would in the examination hall — definition, reasoning, and a worked example."
-              className="w-full resize-y rounded-lg border border-rule-strong bg-surface px-5 py-4 text-[15px] leading-relaxed text-ink placeholder:text-ink-faint focus:border-primary"
+              className="w-full resize-y rounded-[1.35rem] border border-rule-strong bg-carbon px-5 py-5 text-[15px] leading-relaxed text-ink placeholder:text-ink-faint focus:border-primary"
               disabled={phase === "evaluating"}
             />
             <div className="mt-3 flex items-center justify-between gap-3">

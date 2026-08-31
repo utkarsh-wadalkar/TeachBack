@@ -50,12 +50,12 @@ export function ConceptBadge({
     </>
   );
 
-  const rowClass = `flex w-full items-center gap-3 px-3 py-2.5 text-left transition-colors ${
-    to ? "hover:bg-primary-tint/60 cursor-pointer rounded-md" : ""
-  } ${state === "active" ? "bg-primary-tint" : ""}`;
+  const rowClass = `flex w-full items-center gap-3 px-3 py-3 text-left transition-colors ${
+    to ? "hover:bg-primary-tint/60 cursor-pointer rounded-xl" : ""
+  } ${state === "active" ? "bg-primary-tint ring-1 ring-primary-line/60" : ""}`;
 
   return to ? (
-    <Link to={to} className={`rounded-md ${rowClass}`} aria-current={state === "active" ? "page" : undefined}>
+    <Link to={to} className={`rounded-xl ${rowClass}`} aria-current={state === "active" ? "page" : undefined}>
       {body}
     </Link>
   ) : (

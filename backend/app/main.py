@@ -5,15 +5,34 @@ from __future__ import annotations
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from sqlalchemy import select
 
 from app.api import api_router
 from app.core.config import settings
 from app.core.errors import AppError
 from app.db.base import Base
-from app.db.session import engine
+from app.db.models.curriculum import University
+from app.db.session import SessionLocal, engine
 
 # Import models so every table is registered on Base.metadata before create_all.
 import app.db.models  # noqa: F401,E402
+
+
+def _seed_vercel_demo_if_empty() -> None:
+    """Load the bundled mock curriculum into Vercel's ephemeral SQLite disk."""
+    if not settings.is_vercel:
+        return
+
+    db = SessionLocal()
+    try:
+        has_curriculum = db.scalar(select(University.id).limit(1)) is not None
+    finally:
+        db.close()
+
+    if not has_curriculum:
+        from scripts.load_data import main as load_demo_data
+
+        load_demo_data()
 
 
 def create_app() -> FastAPI:
@@ -40,6 +59,7 @@ def create_app() -> FastAPI:
         # Create tables if they don't exist. Demo *data* is loaded separately via
         # scripts/load_data.py — this only guarantees the schema is present.
         Base.metadata.create_all(bind=engine)
+        _seed_vercel_demo_if_empty()
 
     @app.get("/", tags=["root"])
     def root() -> dict:

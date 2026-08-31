@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Radio } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ConceptBadge } from "../components/ConceptBadge";
 import { LoadingState } from "../components/LoadingState";
@@ -28,39 +28,47 @@ export function CurriculumPage() {
   const enabledConcept = topic.concepts.find((c) => c.teachback_enabled);
 
   return (
-    <article>
+    <article className="pb-8">
       <PageHeader
         crumbs={[
           { label: university?.code ?? "SPPU" },
           { label: programme?.name ?? "B.E. AI&DS" },
           { label: semester?.name ?? "Semester IV" },
         ]}
-        title="Database Management Systems"
-        lede="Pick up where the syllabus leaves off: explain a concept in your own words, and TeachBack tells you whether you actually understand it."
+        title="Understand the system. Then prove it."
+        lede="TeachBack turns studying into an honest signal: explain a concept in your own words, then see exactly what your understanding can carry."
       />
 
-      {/* The loop, stated once, quietly */}
-      <p className="mb-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-ink-faint">
-        <span className="font-medium text-ink-soft">Learn</span>
-        <span aria-hidden>→</span>
-        <span className="font-medium text-ink-soft">Explain</span>
-        <span aria-hidden>→</span>
-        <span className="font-medium text-ink-soft">Evaluate</span>
-        <span aria-hidden>→</span>
-        <span className="font-medium text-ink-soft">Correct</span>
-        <span aria-hidden>→</span>
-        <span className="font-medium text-ink-soft">Apply</span>
-      </p>
+      <section className="panel-surface relative mb-10 overflow-hidden rounded-[1.6rem] px-6 py-6 sm:px-8">
+        <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full bg-primary/15 blur-3xl" />
+        <div className="relative flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+          <div>
+            <p className="eyebrow mb-3 text-primary">Active protocol</p>
+            <p className="max-w-[50ch] text-[16px] leading-relaxed text-ink-soft">
+              Learn the model. Explain its logic. Receive an actionable diagnostic. Improve with proof.
+            </p>
+            <p className="data-label mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-faint">
+              <span>Learn</span><span className="text-primary">/</span><span>Explain</span><span className="text-primary">/</span><span>Evaluate</span><span className="text-primary">/</span><span>Apply</span>
+            </p>
+          </div>
+          <div className="flex items-center gap-4 rounded-2xl border border-primary-line bg-void/70 px-4 py-3">
+            <span className="signal-orbit flex h-9 w-9 items-center justify-center rounded-full bg-primary text-void">
+              <Radio size={17} aria-hidden />
+            </span>
+            <span><span className="data-label block text-primary">Diagnostic mode</span><span className="mt-1 block text-[13px] text-ink-soft">Ready for a first attempt</span></span>
+          </div>
+        </div>
+      </section>
 
       <section aria-labelledby="normalization-heading">
-        <div className="mb-3 flex items-baseline justify-between">
-          <h2 id="normalization-heading" className="text-[19px] font-semibold tracking-[-0.01em]">
+        <div className="mb-4 flex items-baseline justify-between gap-4">
+          <h2 id="normalization-heading" className="display-type text-[24px] leading-none">
             Normalization
           </h2>
-          <span className="text-[12.5px] text-ink-faint">Unit III · Relational Database Design</span>
+          <span className="data-label text-right text-ink-faint">Unit III / Relational design</span>
         </div>
 
-        <ul className="divide-y divide-rule rounded-lg border border-rule bg-surface px-3 py-1.5">
+        <ul className="panel-surface divide-y divide-rule overflow-hidden rounded-[1.35rem] px-3 py-1.5">
           {topic.concepts.map((concept) => (
             <li key={concept.id}>
               <ConceptBadge
@@ -76,7 +84,7 @@ export function CurriculumPage() {
         </ul>
 
         {enabledConcept ? (
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-6">
+          <div className="panel-surface mt-6 flex flex-wrap items-center justify-between gap-4 rounded-[1.35rem] px-6 py-5">
             <p className="max-w-[52ch] text-[14px] leading-relaxed text-ink-soft">
               The full TeachBack loop is open for{" "}
               <Link to={`/concept/${enabledConcept.id}`} className="font-medium text-primary hover:underline">
@@ -86,7 +94,7 @@ export function CurriculumPage() {
             </p>
             <Link
               to={`/concept/${enabledConcept.id}`}
-              className="inline-flex h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-white transition-colors hover:bg-primary-deep"
+              className="inline-flex h-10 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-void transition-colors hover:bg-primary-deep hover:text-white"
             >
               Start with {enabledConcept.code}
               <ArrowRight size={15} aria-hidden />

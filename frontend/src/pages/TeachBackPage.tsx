@@ -112,7 +112,7 @@ export function TeachBackPage() {
   const canSubmit = text.trim().length > 0 && phase === "compose";
 
   return (
-    <article>
+    <article className="pb-8">
       <PageHeader
         crumbs={[
           { label: "DBMS", to: "/" },
@@ -128,7 +128,7 @@ export function TeachBackPage() {
           {attempts.map((a, i) => (
             <li
               key={a.attempt_id}
-              className={`rounded-md border px-2.5 py-1 text-[12.5px] font-medium tabular-nums ${
+              className={`rounded-full border px-3 py-1 text-[12.5px] font-medium tabular-nums ${
                 i === attempts.length - 1
                   ? "border-primary-line bg-primary-tint text-primary"
                   : "border-rule bg-surface text-ink-faint"
@@ -153,7 +153,7 @@ export function TeachBackPage() {
       {/* Composer */}
       <section aria-label="Write your explanation" className={latest ? "border-t border-rule pt-10" : ""}>
         {followUpQuote ? (
-          <div className="mb-4 flex items-start justify-between gap-3 rounded-lg border border-primary-line bg-primary-tint px-4 py-3">
+          <div className="mb-4 flex items-start justify-between gap-3 rounded-[1.2rem] border border-primary-line bg-primary-tint px-5 py-4">
             <div>
               <p className="eyebrow mb-1 text-primary">Answering the follow-up</p>
               <p className="flex items-start gap-2 text-[14px] leading-relaxed text-ink">
@@ -223,7 +223,7 @@ export function TeachBackPage() {
               ? "Take another go — use what the report showed you…"
               : `In your own words: what does ${meta.concept_name.replace(/^Third Normal Form$/, "3NF")} require, and why does it matter?`
           }
-          className="w-full resize-y rounded-lg border border-rule-strong bg-surface px-5 py-4 text-[15px] leading-relaxed text-ink placeholder:text-ink-faint focus:border-primary"
+          className="w-full resize-y rounded-[1.35rem] border border-rule-strong bg-carbon px-5 py-5 text-[15px] leading-relaxed text-ink placeholder:text-ink-faint focus:border-primary"
           disabled={phase === "evaluating"}
         />
 

@@ -18,7 +18,7 @@ interface PageHeaderProps {
 /** Breadcrumb trail + display heading — the top of every content page. */
 export function PageHeader({ crumbs, title, lede, meta }: PageHeaderProps) {
   return (
-    <header className="mb-8">
+    <header className="mb-9 border-b border-rule pb-7">
       <nav aria-label="Breadcrumb" className="mb-4">
         <ol className="flex flex-wrap items-center gap-1 text-[13px] text-ink-faint">
           {crumbs.map((crumb, i) => (
@@ -38,7 +38,7 @@ export function PageHeader({ crumbs, title, lede, meta }: PageHeaderProps) {
         </ol>
       </nav>
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-        <h1 className="text-[28px] leading-tight font-semibold tracking-[-0.02em] text-ink">
+        <h1 className="display-type max-w-[19ch] text-[clamp(2.1rem,5vw,3.9rem)] leading-[0.95] text-ink">
           {title}
         </h1>
         {meta}

@@ -1,4 +1,4 @@
-﻿import { GraduationCap } from "lucide-react";
+import { GraduationCap, Menu, Orbit } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import { useCurriculum } from "../lib/curriculum";
@@ -32,7 +32,7 @@ export function AppShell() {
   }
 
   return (
-    <div className="min-h-screen lg:grid lg:grid-cols-[264px_1fr]">
+    <div className="min-h-screen bg-void lg:grid lg:grid-cols-[272px_1fr]">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-surface focus:px-3 focus:py-1.5 focus:text-sm"
@@ -40,22 +40,22 @@ export function AppShell() {
         Skip to content
       </a>
 
-      <aside className="border-b border-rule bg-surface lg:sticky lg:top-0 lg:h-screen lg:border-r lg:border-b-0">
+      <aside className="border-b border-rule bg-surface/90 backdrop-blur-xl lg:sticky lg:top-0 lg:h-screen lg:border-r lg:border-b-0">
         <div className="flex h-full flex-col">
           {/* Wordmark */}
           <Link
             to="/"
             onClick={() => setNavOpen(false)}
-            className="flex items-center gap-2.5 px-5 py-5"
+            className="flex items-center gap-3 px-5 py-5"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-white">
+            <span className="signal-orbit flex h-8 w-8 items-center justify-center rounded-full bg-primary text-void shadow-[0_0_28px_rgba(255,106,26,0.42)]">
               <GraduationCap size={17} aria-hidden />
             </span>
             <span>
-              <span className="block text-[15px] leading-tight font-semibold tracking-[-0.01em]">
+              <span className="display-type block text-[17px] leading-tight">
                 TeachBack
               </span>
-              <span className="block text-[11.5px] text-ink-faint">Prove you understand.</span>
+              <span className="data-label mt-0.5 block text-ink-faint">Learning diagnostics</span>
             </span>
           </Link>
 
@@ -64,16 +64,19 @@ export function AppShell() {
             type="button"
             onClick={() => setNavOpen((o) => !o)}
             aria-expanded={navOpen}
-            className="mx-5 mb-3 rounded-md border border-rule-strong px-3 py-1.5 text-left text-[13px] font-medium text-ink lg:hidden"
+            className="mx-5 mb-3 flex items-center justify-between rounded-full border border-rule-strong bg-carbon px-3 py-2 text-left text-[13px] font-medium text-ink lg:hidden"
           >
-            {navOpen ? "Hide" : "Browse"} curriculum
+            {navOpen ? "Hide" : "Browse"} curriculum <Menu size={15} aria-hidden />
           </button>
 
           <nav
             aria-label="Curriculum"
             className={`${navOpen ? "block" : "hidden"} flex-1 overflow-y-auto px-3 pb-4 lg:block`}
           >
-            <p className="eyebrow mt-1 mb-2 px-2">Curriculum</p>
+            <div className="mt-1 mb-3 flex items-center justify-between px-2">
+              <p className="eyebrow">Curriculum</p>
+              <Orbit size={14} className="text-primary" aria-hidden />
+            </div>
 
             {loading ? (
               <LoadingState label="Loading curriculum…" />
@@ -81,7 +84,7 @@ export function AppShell() {
               <p className="px-2 text-[13px] text-misconception">{error}</p>
             ) : topic ? (
               <>
-                <p className="mb-2 px-2 text-[13px] text-ink-faint">Normalization</p>
+                <p className="data-label mb-2 px-2 text-ink-faint">Module / Normalization</p>
                 <ul className="space-y-0.5">
                   {topic.concepts.map((concept) => (
                     <li key={concept.id}>
@@ -103,7 +106,7 @@ export function AppShell() {
                   ))}
                 </ul>
 
-                <p className="eyebrow mt-7 mb-2 px-2">Mastery</p>
+                <p className="eyebrow mt-7 mb-2 px-2">Signal strength</p>
                 <ul className="space-y-3 px-2">
                   {topic.concepts
                     .filter((c) => c.mastery != null)
@@ -132,7 +135,7 @@ export function AppShell() {
           <div className="mt-auto hidden items-center gap-2.5 border-t border-rule px-5 py-4 lg:flex">
             <span
               aria-hidden
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-tint text-[11px] font-semibold text-primary"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-primary-line bg-primary-tint text-[11px] font-semibold text-primary"
             >
               DS
             </span>
@@ -144,8 +147,8 @@ export function AppShell() {
         </div>
       </aside>
 
-      <main id="main" className="min-w-0 px-5 py-8 sm:px-8 lg:px-14 lg:py-12">
-        <div className="mx-auto max-w-[880px]">
+      <main id="main" className="dark-grid min-w-0 px-5 py-8 sm:px-8 lg:px-14 lg:py-12">
+        <div className="mx-auto max-w-[920px]">
           <Outlet />
         </div>
       </main>

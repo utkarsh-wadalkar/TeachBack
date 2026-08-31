@@ -149,6 +149,22 @@ Covers the critical contracts: evaluation-schema rejection of invalid AI output,
 the 3NF syllabus placement, session/attempt integrity, mastery updates, and PYQ
 source metadata.
 
+## 8.1 Deploying the demo to Vercel
+
+The repository includes a Vercel configuration that builds the React frontend,
+serves its Vite output, and runs the FastAPI API through a same-origin Python
+function. No environment variables are needed for the default mock demo:
+
+```bash
+npx vercel login
+npx vercel --prod
+```
+
+The Vercel function seeds its bundled DBMS/3NF demo data automatically. It uses
+an ephemeral SQLite database under `/tmp`, so attempts and mastery may reset
+when Vercel creates a new function instance. Configure a persistent database
+before using this deployment with real students.
+
 ## 9. Demo flow (90 seconds)
 
 1. Open the app → **Learning path**: SPPU → DBMS → Normalization, six concepts,

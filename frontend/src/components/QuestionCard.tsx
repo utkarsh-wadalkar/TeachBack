@@ -21,7 +21,7 @@ function sourceLine(source: PyqOut["source"], year: string, marks: number): stri
  */
 export function QuestionCard({ pyq }: QuestionCardProps) {
   return (
-    <article className="rounded-lg border border-rule bg-surface px-6 py-5">
+    <article className="panel-surface rounded-[1.35rem] px-6 py-5">
       <p className="eyebrow mb-3">{sourceLine(pyq.source, pyq.year, pyq.marks)}</p>
       <h3 className="max-w-[70ch] text-[16.5px] leading-snug font-medium text-ink">
         {pyq.question}
@@ -41,7 +41,7 @@ export function QuestionCard({ pyq }: QuestionCardProps) {
       <div className="mt-4 flex justify-end">
         <Link
           to={`/pyq/${pyq.id}`}
-          className="inline-flex h-9 items-center gap-2 rounded-md bg-primary px-3.5 text-[13.5px] font-medium text-white transition-colors hover:bg-primary-deep"
+          className="inline-flex h-9 items-center gap-2 rounded-full bg-primary px-4 text-[13.5px] font-semibold text-void transition-colors hover:bg-primary-deep hover:text-white"
         >
           Attempt question
           <ArrowRight size={14} aria-hidden />

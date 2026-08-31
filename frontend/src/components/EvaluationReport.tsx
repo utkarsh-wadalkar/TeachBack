@@ -32,7 +32,7 @@ export function EvaluationReport({ attempt, onRetry, onAnswerFollowUp }: Evaluat
 
       <div className="reveal-step mt-8">
         <EvaluationSection eyebrow="Breakdown">
-          <div className="divide-y divide-rule/60 rounded-lg border border-rule bg-surface px-5 py-1">
+          <div className="panel-surface divide-y divide-rule/60 rounded-[1.25rem] px-5 py-1">
             <LedgerRow
               label="Conceptual correctness"
               value={`${evaluation.conceptual_correctness}%`}
@@ -127,7 +127,7 @@ export function EvaluationReport({ attempt, onRetry, onAnswerFollowUp }: Evaluat
       {evaluation.followup_question ? (
         <div className="reveal-step mt-8">
           <EvaluationSection eyebrow="Follow-up question">
-            <div className="rounded-lg border border-rule bg-surface px-5 py-4">
+            <div className="panel-surface rounded-[1.25rem] px-5 py-4">
               <p className="max-w-[68ch] text-[15px] leading-relaxed font-medium text-ink">
                 {evaluation.followup_question}
               </p>

@@ -65,7 +65,7 @@ export function LearningPage() {
   const b = content.breadcrumb;
 
   return (
-    <article>
+    <article className="pb-8">
       <PageHeader
         crumbs={[
           { label: b.university },
@@ -82,7 +82,7 @@ export function LearningPage() {
 
       {/* Reading column */}
       <div className="max-w-[70ch]">
-        <p className="text-[17px] leading-relaxed font-medium text-ink">{content.summary}</p>
+        <p className="border-l border-primary pl-5 text-[17px] leading-relaxed font-medium text-ink">{content.summary}</p>
 
         {content.key_idea ? (
           <section aria-labelledby="key-idea" className="mt-9">
@@ -109,7 +109,7 @@ export function LearningPage() {
         ) : null}
 
         {content.example ? (
-          <section aria-labelledby="example" className="mt-9 rounded-lg border border-rule bg-surface px-6 py-5">
+          <section aria-labelledby="example" className="panel-surface mt-9 rounded-[1.35rem] px-6 py-5">
             <p id="example" className="eyebrow mb-2 flex items-center gap-1.5">
               <BookOpen size={13} aria-hidden />
               Example
@@ -124,7 +124,7 @@ export function LearningPage() {
 
         {content.common_mistake ? (
           <section aria-labelledby="common-mistake" className="mt-8">
-            <div className="rounded-lg border border-attention-line border-l-4 border-l-attention bg-attention-bg px-5 py-4">
+            <div className="rounded-[1.2rem] border border-attention-line border-l-4 border-l-attention bg-attention-bg px-5 py-4">
               <p id="common-mistake" className="eyebrow mb-1.5 text-attention">
                 Common mistake
               </p>
@@ -141,7 +141,7 @@ export function LearningPage() {
         <h2 id="in-topic" className="eyebrow mb-3">
           In this topic
         </h2>
-        <ul className="divide-y divide-rule rounded-lg border border-rule bg-surface px-3 py-1.5">
+        <ul className="panel-surface divide-y divide-rule rounded-[1.35rem] px-3 py-1.5">
           {content.siblings.map((sibling) => (
             <li key={sibling.id}>
               <ConceptBadge
@@ -164,8 +164,9 @@ export function LearningPage() {
       </section>
 
       {/* The call to action — one rule, one question, one button */}
-      <section aria-labelledby="ready" className="mt-12 border-t border-rule pt-8">
-        <h2 id="ready" className="text-[18px] font-semibold tracking-[-0.01em]">
+      <section aria-labelledby="ready" className="panel-surface mt-12 rounded-[1.45rem] px-6 py-7 sm:px-8">
+        <p className="eyebrow mb-2 text-primary">Diagnostic gate</p>
+        <h2 id="ready" className="display-type text-[26px]">
           Ready to explain it?
         </h2>
         <p className="mt-1.5 max-w-[60ch] text-[14.5px] leading-relaxed text-ink-soft">

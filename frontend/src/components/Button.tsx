@@ -13,15 +13,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANTS: Record<Variant, string> = {
   primary:
-    "bg-primary text-white hover:bg-primary-deep disabled:hover:bg-primary border border-transparent",
+    "rounded-full bg-primary text-void hover:bg-primary-deep hover:text-white disabled:hover:bg-primary border border-transparent shadow-[0_0_24px_rgba(255,106,26,0.18)]",
   secondary:
     "bg-surface text-ink border border-rule-strong hover:border-ink-faint hover:text-ink",
   ghost: "bg-transparent text-primary hover:bg-primary-tint border border-transparent",
 };
 
 const SIZES: Record<Size, string> = {
-  sm: "h-8 px-3 text-[13px] gap-1.5 rounded-md",
-  md: "h-10 px-4 text-sm gap-2 rounded-md",
+  sm: "h-8 px-3 text-[13px] gap-1.5 rounded-full",
+  md: "h-10 px-4 text-sm gap-2 rounded-full",
 };
 
 /** The single button style in the product. Loading swaps content for a spinner. */

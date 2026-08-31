@@ -17,9 +17,9 @@ export function ScoreCard({ understanding, improvement }: ScoreCardProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
+      <div className="panel-surface flex flex-wrap items-end gap-x-6 gap-y-4 rounded-[1.45rem] px-6 py-6">
         <div className="flex items-baseline gap-1">
-          <span className="text-[56px] leading-none font-semibold tracking-[-0.03em] text-ink tabular-nums">
+          <span className="display-type text-[70px] leading-none text-primary tabular-nums">
             {understanding}
           </span>
           <span className="text-[22px] font-medium text-ink-faint">%</span>
