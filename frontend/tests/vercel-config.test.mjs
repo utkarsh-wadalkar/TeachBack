@@ -8,10 +8,10 @@ test("Vercel leaves Python API routing to the native runtime", async () => {
   assert.equal(config.rewrites, undefined);
 });
 
-test("the Vite production build feeds FastAPI's public static directory", async () => {
+test("FastAPI bundles the committed Vite public assets without overwriting them", async () => {
   const config = JSON.parse(await readFile(new URL("../../vercel.json", import.meta.url), "utf8"));
 
-  assert.match(config.buildCommand, /npm run build -- --outDir \.\.\/public --emptyOutDir/);
+  assert.match(config.buildCommand, /cd frontend && npm run build/);
   assert.equal(config.outputDirectory, undefined);
   assert.equal(config.functions["api/index.py"].includeFiles, "public/**");
 });
