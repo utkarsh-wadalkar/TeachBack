@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import select
 
 from app.api import api_router
@@ -16,6 +19,9 @@ from app.db.session import SessionLocal, engine
 
 # Import models so every table is registered on Base.metadata before create_all.
 import app.db.models  # noqa: F401,E402
+
+
+PUBLIC_DIR = Path(__file__).resolve().parents[2] / "public"
 
 
 def _seed_vercel_demo_if_empty() -> None:
@@ -61,8 +67,15 @@ def create_app() -> FastAPI:
         Base.metadata.create_all(bind=engine)
         _seed_vercel_demo_if_empty()
 
+    if (PUBLIC_DIR / "assets").is_dir():
+        app.mount("/assets", StaticFiles(directory=PUBLIC_DIR / "assets"), name="assets")
+
     @app.get("/", tags=["root"])
-    def root() -> dict:
+    def root():
+        index_file = PUBLIC_DIR / "index.html"
+        if index_file.is_file():
+            return FileResponse(index_file)
+
         return {"app": settings.app_name, "docs": "/docs", "health": "/api/health"}
 
     app.include_router(api_router, prefix="/api")

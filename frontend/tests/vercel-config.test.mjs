@@ -13,6 +13,7 @@ test("the Vite production build feeds FastAPI's public static directory", async 
 
   assert.match(config.buildCommand, /npm run build -- --outDir \.\.\/public --emptyOutDir/);
   assert.equal(config.outputDirectory, undefined);
+  assert.equal(config.functions["api/index.py"].includeFiles, "public/**");
 });
 
 test("the frontend uses hash navigation so static hosting needs no route rewrite", async () => {
