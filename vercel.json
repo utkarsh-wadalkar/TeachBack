@@ -1,5 +1,4 @@
 {
-  "buildCommand": "cd frontend && npm run build",
-  "installCommand": "uv pip install -r requirements.txt && cd frontend && npm ci",
-  "outputDirectory": "frontend/dist"
+  "buildCommand": "cd frontend && npm run build -- --outDir ../public --emptyOutDir",
+  "installCommand": "uv pip install -r requirements.txt && cd frontend && npm ci"
 }

@@ -8,6 +8,13 @@ test("Vercel leaves Python API routing to the native runtime", async () => {
   assert.equal(config.rewrites, undefined);
 });
 
+test("the Vite production build feeds FastAPI's public static directory", async () => {
+  const config = JSON.parse(await readFile(new URL("../../vercel.json", import.meta.url), "utf8"));
+
+  assert.match(config.buildCommand, /npm run build -- --outDir \.\.\/public --emptyOutDir/);
+  assert.equal(config.outputDirectory, undefined);
+});
+
 test("the frontend uses hash navigation so static hosting needs no route rewrite", async () => {
   const entry = await readFile(new URL("../src/main.tsx", import.meta.url), "utf8");
 
